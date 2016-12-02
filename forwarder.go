@@ -49,6 +49,10 @@ func Forward(w http.ResponseWriter, r *http.Request, targetURL string) (err erro
 			}
 		}
 	}
+	for k, _ := range res.Header {
+		v := res.Header.Get(k)
+		w.Header().Add(k, v)
+	}
 
 	_, err = io.Copy(w, rd)
 	if err != nil {
