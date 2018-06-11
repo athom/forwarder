@@ -21,7 +21,11 @@ func Forward(w http.ResponseWriter, r *http.Request, targetURL string) (err erro
 		if err != nil {
 			return err
 		}
-		log.Println(`curl -d '` + string(b) + `' ` + targetURL)
+		if r.Method == `POST` {
+			log.Println(`curl -d '` + string(b) + `' ` + targetURL)
+		} else if r.Method == `GET` {
+			log.Println(`curl` + targetURL)
+		}
 		buf = bytes.NewBuffer(b)
 	}
 
